@@ -118,7 +118,7 @@ if st.session_state["authentication_status"] is False:
 elif st.session_state["authentication_status"] is None:
     st.error("Please enter your username and password")
 
-else:
+elif st.session_state["authentication_status"]:
     ## ESTABLISHING CONNECTION - GOOGLE SHEETS
     conn = st.connection("gsheets", type=GSheetsConnection)
     # Fetch existing data
