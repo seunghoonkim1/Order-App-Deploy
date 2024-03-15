@@ -1,4 +1,2 @@
 st-gsheets-connection
 requests
-pickle
-pathlib
