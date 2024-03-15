@@ -1,0 +1,18 @@
+credentials:
+  usernames:
+    peach:
+      email: 
+      logged_in: False # Will be managed automatically
+      name: peach
+      password: peach123# # Will be hashed automatically
+    marketing:
+      email: 
+      logged_in: False # Will be managed automatically
+      name: marketing
+      password: marketingpeach123# # Will be hashed automatically
+cookie:
+  expiry_days: 150
+  key: orderapp # Must be string
+  name: order_app
+preauthorized:
+  emails:
