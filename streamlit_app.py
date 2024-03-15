@@ -99,7 +99,7 @@ marketing_sku_list = list(set(marketing_data["SKU"]))
 users = ["marketing", "peach"]
 usernames = ["marketing", "peach"]
 
-with open("Order-App-Deploy/config.yaml") as file:
+with open('config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
 authenticator = stauth.Authenticate(
