@@ -1,7 +1,7 @@
 credentials:
   usernames:
     peach:
-      email: 
+      email:
       logged_in: False # Will be managed automatically
       name: peach
       password: peach123 # Will be hashed automatically
