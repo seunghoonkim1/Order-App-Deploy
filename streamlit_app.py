@@ -18,7 +18,7 @@ def create_session():
         s = requests.Session()
         s.headers.update({
             "Content-Type": "application/json",
-            "X-Shopify-Access-Token": st.secrets(shopify_api_token)
+            "X-Shopify-Access-Token": st.secrets("shopify_token")
             }) # st.secrets allow streamlit to read what's in the secrets area
     
         # function to call shopify call limit
