@@ -3,8 +3,8 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit_authenticator as stauth
 import pandas as pd
 from datetime import date, datetime
-import pickle
-from pathlib import Path
+import yaml
+from yaml.loader import SafeLoader
 import requests
 import json
 import time
@@ -99,22 +99,26 @@ marketing_sku_list = list(set(marketing_data["SKU"]))
 users = ["marketing", "peach"]
 usernames = ["marketing", "peach"]
 
-file_path = Path(__file__).parent / "hashed_passwords.pkl"
+with open("/config.yaml") as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-with file_path.open("rb") as file:
-    hashed_passwords = pickle.load(file)
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['preauthorized']
+    )
 
-authenticator = stauth.Authenticate(users, usernames, hashed_passwords, "order_app", "abcde1")
+authenticator.login("Login", "main")
 
-users, authentication_status, username = authenticator.login("Login", "main")
-
-if authentication_status == False:
+if st.session_state["authentication_status"] is False:
     st.error("Username/Password is incorrect")
     
-if authentication_status == None:
+if st.session_state["authentication_status"] is None:
     st.error("Please enter your username and password")
 
-if authentication_status == True:
+if st.session_state["authentication_status"] is True:
     ## ESTABLISHING CONNECTION - GOOGLE SHEETS
     conn = st.connection("gsheets", type=GSheetsConnection)
     # Fetch existing data
