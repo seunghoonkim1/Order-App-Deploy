@@ -110,7 +110,7 @@ authenticator = stauth.Authenticate(
     config['preauthorized']
     )
 
-authenticator.login("main")
+authenticator.login(location="main")
 
 if st.session_state["authentication_status"] is False:
     st.error("Username/Password is incorrect")
@@ -127,7 +127,7 @@ else:
     existing_order_list = set(existing_data['Sales order number *'])
 
     ## Logout button
-    authenticator.logout("Logout", "main")
+    authenticator.logout(button_name="Logout", location="main")
 
     ## Display Title and Description
     st.title("Peach and Lily - Order Portal")
