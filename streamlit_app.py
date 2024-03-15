@@ -114,11 +114,8 @@ authenticator.login()
 
 if st.session_state["authentication_status"] is False:
     st.error("Username/Password is incorrect")
-    
-if st.session_state["authentication_status"] is None:
-    st.error("Please enter your username and password")
 
-if st.session_state["authentication_status"] is True:
+else:
     ## ESTABLISHING CONNECTION - GOOGLE SHEETS
     conn = st.connection("gsheets", type=GSheetsConnection)
     # Fetch existing data
