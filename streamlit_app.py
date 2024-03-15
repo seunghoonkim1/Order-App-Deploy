@@ -110,10 +110,13 @@ authenticator = stauth.Authenticate(
     config['preauthorized']
     )
 
-authenticator.login()
+authenticator.login("main")
 
 if st.session_state["authentication_status"] is False:
     st.error("Username/Password is incorrect")
+
+elif st.session_state["authentication_status"] is None:
+    st.error("Please enter your username and password")
 
 else:
     ## ESTABLISHING CONNECTION - GOOGLE SHEETS
