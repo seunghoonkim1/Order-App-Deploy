@@ -241,7 +241,8 @@ elif st.session_state["authentication_status"]:
         city_name = st.text_input(label="City*")
         state_name = st.text_input(label="State*")
         zip_code = st.text_input(label="ZIP Code*")
-        country = st.text_input(label="Country*")
+        # country fixed for united states
+        country = "United State"
         email = st.text_input(label="email*")
         
         # Include values in session state
@@ -289,6 +290,9 @@ elif st.session_state["authentication_status"]:
             # Check if all mandatory filed are filled
             if not customer_name or not address_1 or not city_name or not state_name or not zip_code or not country or not email:
                 st.warning("Ensure all mandatory fields are filled")
+                st.stop()
+            elif len(state_name) != 2:
+                st.warning("Ensure state is abbreviated")
                 st.stop()
             else:
                 # Create a new row of order data
