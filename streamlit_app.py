@@ -242,7 +242,7 @@ elif st.session_state["authentication_status"]:
         state_name = st.text_input(label="State*")
         zip_code = st.text_input(label="ZIP Code*")
         # country fixed for united states
-        country = "United State"
+        country = "United States"
         email = st.text_input(label="email*")
         
         # Include values in session state
@@ -275,9 +275,9 @@ elif st.session_state["authentication_status"]:
         
         # Checking to see if shipment should be B2B or D2C
         if sum(st.session_state["quantity"]) >= 100:
-            order_channel = "B2B"
+            order_channel = "Influencer B2B"
         else:
-            order_channel = "D2C"
+            order_channel = "Influencer D2C"
 
         # Initiate order_data dictionary to avoid error
         order_data = {}
@@ -319,7 +319,7 @@ elif st.session_state["authentication_status"]:
                 "Unit of measure *": "ea",
                 "Lot": "",
                 "Sale price": "",
-                "Origin facility *": "BDLS001",
+                "Origin facility *": "BDLs001",
                 "Shipment Type": "Parcel"
                 }
 
