@@ -16,6 +16,7 @@ class ShopifyAPI:
        self.base_url = base_url
        self.endpoint = endpoint
        self.session = self.create_session()
+       
     
     def create_session(self):
         """ Create Shopify Session
@@ -24,7 +25,8 @@ class ShopifyAPI:
         s.headers.update({
             "Content-Type": "application/json",
             "X-Shopify-Access-Token": st.secrets["shopify_token"]
-        }) # important tokens and credentials are in streamlit's secret section
+        })
+        # important tokens and credentials are in streamlit's secret section
         # st.secrets allow streamlit to read what's in the secrets area
         # This was to prevent access for people who look at github
         
@@ -62,6 +64,7 @@ class ShopifyAPI:
         link to next url using requests's links method to the header of session.
         :param resp: parse response from Shopify API
         """
+        print("linking pages")
         next_url = resp.links['next']['url']
         return next_url
     
@@ -86,3 +89,6 @@ class ShopifyAPI:
         print("finish")
         print(product_list)
         return product_list
+    
+    if __name__ == '__main__':
+        get_product_list()
