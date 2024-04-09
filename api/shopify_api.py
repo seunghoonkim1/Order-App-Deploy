@@ -66,7 +66,7 @@ class ShopifyAPI:
         return next_url
     
     def get_product_list(self):
-        sess = self.session
+        sess = self.create_session()
         resp = sess.get(self.base_url + self.endpoint)
         
         products = self.parse_json(resp)
