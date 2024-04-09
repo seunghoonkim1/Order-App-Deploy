@@ -62,9 +62,8 @@ class ShopifyAPI:
         link to next url using requests's links method to the header of session.
         :param resp: parse response from Shopify API
         """
-        if "next" in resp.links:
-            next_url = resp.links['next']['url']
-            return next_url
+        next_url = resp.links['next']['url']
+        return next_url
     
     def get_product_list(self):
         sess = self.session
@@ -73,6 +72,7 @@ class ShopifyAPI:
         next_url = self.link_pages(resp)
 
         while next_url:
+            print("start")
             new_response = sess.get(next_url)
             new_products = self.parse_json(new_response)
             product_list = pd.concat([products, new_products], ignore_index=True)
@@ -82,5 +82,6 @@ class ShopifyAPI:
                 break
             else:
                 next_url = self.link_pages(new_response)
+        print("finish")
         
         return product_list
