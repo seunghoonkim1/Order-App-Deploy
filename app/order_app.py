@@ -60,8 +60,7 @@ class OrderApp:
             with st.container(border = True):
                 st.subheader("Department")
                 department_list = ["Marketing", "Sales", "Operations", "Finance"]
-                ordering_department = st.selectbox("Choose Ordering Department", 
-                                                department_list)
+                ordering_department = st.selectbox("Choose Ordering Department", department_list)
                 # Add to Session State
                 st.session_state["Department"] = ordering_department
                 
@@ -73,7 +72,7 @@ class OrderApp:
                 st.subheader("Items")
                 cols = st.columns([2,1,1])
                 dep_list = ["MKT", "SLS"]
-                if department_list[ordering_department] not in dep_list:
+                if ordering_department not in dep_list:
                     title_list = p_title_list
                 else:
                     title_list = marketing_title_list
