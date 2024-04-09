@@ -23,7 +23,7 @@ class OrderApp:
     def run(self):
         # Fetch relevant product data from Shopify API
         data, p_title_list, marketing_title_list, sku_list, marketing_sku_list = self.fetch_shopify_data()
-        
+        print(len(marketing_sku_list))
         # Order App authenticator setup
         self.authenticator.login()
         if self.authenticator.authentication_status() is False:
@@ -264,7 +264,6 @@ class OrderApp:
         """Fetch and process relevant data from Shopify API."""
         shopify_data = ShopifyAPI()
         data = shopify_data.get_product_list()
-        print(len(data))
 
         # filter to active products
         data = data[data["parent_status"] == "active"]
