@@ -6,7 +6,6 @@ class GoogleSheets:
     """
     def __init__(self):
         self.conn = self.create_connection()
-        self.read_data = self.read_existing_data()
         
     def create_connection(self):
         """ Create connection with Google Sheets
