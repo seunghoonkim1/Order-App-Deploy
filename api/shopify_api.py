@@ -84,5 +84,5 @@ class ShopifyAPI:
             else:
                 next_url = self.link_pages(new_response)
         print("finish")
-        print(len(product_list))
+        print(product_list)
         return product_list
