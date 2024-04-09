@@ -28,7 +28,8 @@ class OrderApp:
             st.error("Please enter your username and password")
         elif self.authenticator.authentication_status():
             # Establishing connection - Google Sheets
-            existing_data = self.google_sheets.read_existing_data(worksheet="Sheet1")
+            google_sheet = GoogleSheets()
+            existing_data = google_sheet.read_existing_data(worksheet="Sheet1")
             existing_order_list = set(existing_data['Sales order number *'])
             
             # Logout button
@@ -290,6 +291,3 @@ class OrderApp:
             sales_order_number = f"{department_code.get(department, 'MKT')}{today_date}{number_start}"
 
         return sales_order_number
-        
-        
-        
