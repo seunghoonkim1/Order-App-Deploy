@@ -19,13 +19,11 @@ class ShopifyAPI:
        
     
     def create_session(self):
-        """ Create Shopify Session
-        """
         s = requests.Session()
         s.headers.update({
             "Content-Type": "application/json",
             "X-Shopify-Access-Token": st.secrets["shopify_token"]
-        })
+            })
         # important tokens and credentials are in streamlit's secret section
         # st.secrets allow streamlit to read what's in the secrets area
         # This was to prevent access for people who look at github
@@ -35,28 +33,30 @@ class ShopifyAPI:
         
         return s
     
+    # function to call shopify call limit
     def api_calls(self, r, *args, **kwargs):
         """ Call Shopify's call limit and maintain below limit
         :param r: reads the response when session is created
         """
-        # checks the number of calls left to use
+        # checks the how many calls are left
         calls_left = r.headers['X-Shopify-Shop-Api-Call-Limit'].split("/")
-        # call limit is 400. If 399 goes to sleep.
+        # call limit is 400. if 399 goes to sleep.
         if (int(calls_left[0])) == 398:
             print('limit close, sleeping')
             time.sleep(5)
     
+    # Parse JSON
     def parse_json(self, resp):
         """ parse response from shopify api to json format
         :params resp: response from get of baseurl and endpoint
         """
         products = resp.json()
         product_list = pd.json_normalize(products['products'],
-                                            sep="_",
-                                            record_path=['variants'],
-                                            meta=['id', 'title', 'status', 'tags'],
-                                            meta_prefix="parent_",
-                                            record_prefix="child_")
+                                        sep="_",
+                                        record_path = ['variants'],
+                                        meta=['id', 'title', 'status', 'tags'],
+                                        meta_prefix="parent_",
+                                        record_prefix = "child_")
         return product_list
 
     def link_pages(self, resp):
@@ -64,22 +64,22 @@ class ShopifyAPI:
         link to next url using requests's links method to the header of session.
         :param resp: parse response from Shopify API
         """
-        print("linking pages")
+        #link to next url using requests's links method to the header of session.
         next_url = resp.links['next']['url']
         return next_url
     
-    def get_product_list(self):
+    def main(self):
         sess = self.create_session()
         resp = sess.get(self.base_url + self.endpoint)
         
-        products = self.parse_json(resp)
+        product_list = self.parse_json(resp)
         next_url = self.link_pages(resp)
-
+        
         while next_url:
             print("start")
             new_response = sess.get(next_url)
-            new_products = self.parse_json(new_response)
-            product_list = pd.concat([products, new_products], ignore_index=True)
+            new_parse = self.parse_json(new_response)
+            product_list = pd.concat([product_list, new_parse], ignore_index=True)
             try:
                 next_url = self.link_pages(new_response)
             except:
@@ -87,5 +87,6 @@ class ShopifyAPI:
             else:
                 next_url = self.link_pages(new_response)
         print("finish")
+        
         print(product_list)
         return product_list
