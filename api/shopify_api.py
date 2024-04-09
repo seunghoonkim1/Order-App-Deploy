@@ -64,15 +64,16 @@ class ShopifyAPI:
         """
         if "next" in resp.links:
             next_url = resp.links['next']['url']
-        return next_url
+            return next_url
     
     def get_product_list(self):
-        resp = self.session.get(self.base_url + self.endpoint)
+        sess = self.session
+        resp = sess.get(self.base_url + self.endpoint)
         products = self.parse_json(resp)
         next_url = self.link_pages(resp)
 
         while next_url:
-            new_response = self.session.get(next_url)
+            new_response = sess.get(next_url)
             new_products = self.parse_json(new_response)
             product_list = pd.concat([products, new_products], ignore_index=True)
             try:
