@@ -256,8 +256,7 @@ class OrderApp:
                         
                         # Update Google Sheets with the new order data
                         self.google_sheets.update_data(worksheet="Sheet1", data=updated_df)
-                    
-                    st.write(f"Order Sumbitted! Order Number is {sales_order_number}")
+                        st.write(f"Order Sumbitted! Order Number is {sales_order_number}")
     
     def fetch_shopify_data(self):
         """Fetch and process relevant data from Shopify API."""
