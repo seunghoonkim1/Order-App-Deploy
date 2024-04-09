@@ -264,6 +264,7 @@ class OrderApp:
         """Fetch and process relevant data from Shopify API."""
         shopify_data = ShopifyAPI()
         data = shopify_data.get_product_list()
+        print(len(data))
 
         # filter to active products
         data = data[data["parent_status"] == "active"]
