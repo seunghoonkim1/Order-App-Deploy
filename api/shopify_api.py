@@ -68,7 +68,7 @@ class ShopifyAPI:
         next_url = resp.links['next']['url']
         return next_url
     
-    def main(self):
+    def get_product_list(self):
         sess = self.create_session()
         resp = sess.get(self.base_url + self.endpoint)
         
