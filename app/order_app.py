@@ -71,11 +71,12 @@ class OrderApp:
             with st.container(border = True):
                 st.subheader("Items")
                 cols = st.columns([2,1,1])
-                dep_list = ["MKT", "SLS"]
-                if ordering_department not in dep_list:
-                    title_list = p_title_list
-                else:
+                dep_list = ["Marketing", "Sales"]
+                print(ordering_department)
+                if ordering_department in dep_list:
                     title_list = marketing_title_list
+                else:
+                    title_list = p_title_list
                 product = cols[0].selectbox("Select product*", title_list, index=None, placeholder="select product", key="productselect")
                 linked_sku = data.loc[data["product"]== product, "SKU"]
                 order_sku = cols[1].selectbox("Select sku", options=linked_sku, index=None, placeholder="select sku", key="skuselect")
@@ -262,16 +263,20 @@ class OrderApp:
         """Fetch and process relevant data from Shopify API."""
         data = self.shopify_api.get_product_list()
 
-        # Filter and process data
+        # filter to active products
         data = data[data["parent_status"] == "active"]
+        # isolate only needed columns
         data = data[["child_sku", "parent_title", "child_inventory_quantity", "parent_tags"]]
+        # rename columns
         data.rename(columns={"child_sku": "SKU", "parent_title": "product", "child_inventory_quantity": "in_stock", "parent_tags": "tags"}, inplace=True)
-
+        # title list without limitation
         p_title_list = list(set(data["product"]))
+        # sku list without limitation
         sku_list = list(set(data['SKU']))
-
+        # title list for marketing
         marketing_data = data[data["tags"].str.contains(r"Marketing")]
         marketing_title_list = list(set(marketing_data["product"]))
+        # sku list for marketing
         marketing_sku_list = list(set(marketing_data["SKU"]))
 
         return data, p_title_list, marketing_title_list, sku_list, marketing_sku_list    
