@@ -21,6 +21,10 @@ class OrderApp:
         self.google_sheets = GoogleSheets()
         
     def run(self):
+        # Fetch relevant product data from Shopify API
+        data, p_title_list, marketing_title_list, sku_list, marketing_sku_list = self.fetch_shopify_data()
+        
+        # Order App authenticator setup
         self.authenticator.login()
         if self.authenticator.authentication_status() is False:
             st.error("Username/Password is incorrect")
@@ -39,9 +43,6 @@ class OrderApp:
             st.title("Peach and Lily - Order Portal")
             st.markdown("Enter the details of the order below.")
             st.text("* is required")
-        
-            # Fetch relevant product data from Shopify API
-            data, p_title_list, marketing_title_list, sku_list, marketing_sku_list = self.fetch_shopify_data()
         
             # Initiate Session State
             if 'product' not in st.session_state:
