@@ -8,7 +8,13 @@ class GoogleSheets:
     :ivar conn: establish connection
     """
     def __init__(self, connection):
-        self.conn = connection
+        self.conn = self.create_connection()
+        
+    def create_connection(self, name="gsheets", type=GSheetsConnection):
+        """ Create connection with Google Sheets
+        :param name: specify the name """
+        conn = st.connection(name, type=type)
+        return conn
     
     def read_existing_data(self, worksheet):
         """ Pull existing data on Google Sheet
