@@ -3,9 +3,6 @@ from streamlit_gsheets import GSheetsConnection
 
 class GoogleSheets:
     """ Connecting Google Sheets API with Streamlit
-    :param connection: connection configuration
-    
-    :ivar conn: establish connection
     """
     def __init__(self):
         self.conn = self.create_connection()
