@@ -262,7 +262,7 @@ class OrderApp:
     
     def fetch_shopify_data(self):
         """Fetch and process relevant data from Shopify API."""
-        data = ShopifyAPI
+        data = ShopifyAPI()
 
         # filter to active products
         data = data[data["parent_status"] == "active"]
