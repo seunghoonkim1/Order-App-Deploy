@@ -251,14 +251,13 @@ class OrderApp:
                         # use pd.explode(list("columns")) to split multiple items in cell
                         orders = orders.explode(["SKU *", "Quantity ordered *"])
 
-                        # Last check with dataframe.
-                        #st.dataframe(data=orders)
-
                         # Add the new order data to the existing data
                         updated_df = pd.concat([existing_data, orders], ignore_index=True)
                         
                         # Update Google Sheets with the new order data
                         self.google_sheets.update_data(worksheet="Sheet1", data=updated_df)
+                    
+                    st.write(f"Order Sumbitted! Order Number is {sales_order_number}")
     
     def fetch_shopify_data(self):
         """Fetch and process relevant data from Shopify API."""
