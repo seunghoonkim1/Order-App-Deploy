@@ -68,6 +68,7 @@ class ShopifyAPI:
     def get_product_list(self):
         sess = self.session
         resp = sess.get(self.base_url + self.endpoint)
+        
         products = self.parse_json(resp)
         next_url = self.link_pages(resp)
 
@@ -83,5 +84,5 @@ class ShopifyAPI:
             else:
                 next_url = self.link_pages(new_response)
         print("finish")
-        
+        print(len(product_list))
         return product_list
