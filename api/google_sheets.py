@@ -7,13 +7,13 @@ class GoogleSheets:
     
     :ivar conn: establish connection
     """
-    def __init__(self, connection):
+    def __init__(self):
         self.conn = self.create_connection()
         
-    def create_connection(self, name="gsheets", type=GSheetsConnection):
+    def create_connection(self):
         """ Create connection with Google Sheets
         :param name: specify the name """
-        conn = st.connection(name, type=type)
+        conn = st.connection("gsheets", type=GSheetsConnection)
         return conn
     
     def read_existing_data(self, worksheet):
