@@ -89,6 +89,3 @@ class ShopifyAPI:
         print("finish")
         print(product_list)
         return product_list
-    
-    if __name__ == '__main__':
-        get_product_list()
