@@ -115,7 +115,7 @@ class OrderApp:
                 
                 def reset_item():
                     st.session_state["product"].remove(p)
-                    st.session_state["SKU *"].remove(s)
+                    st.session_state["SKU"].remove(s)
                     st.session_state["quantity"].remove(q)
                 
                 # loop to iterate each line of product ordered
