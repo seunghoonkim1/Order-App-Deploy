@@ -17,7 +17,6 @@ class Authenticator:
            self.config['cookie']['name'],
            self.config['cookie']['key'],
            self.config['cookie']['expiry_days'],
-           self.config['preauthorized']
         )
         
     def load_config(self):
